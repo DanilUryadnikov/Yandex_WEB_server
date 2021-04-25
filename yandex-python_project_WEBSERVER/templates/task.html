@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+{% for task in tasks %}
+<h1>{{task.title}}</h1>
+<h3>Сложность: {{task.difficulty}}</h3>
+<h3>Класс: {{task.grade}}</h3>
+<div class="col-md6 border rounded">
+    <h4>{{task.content}}</h4>
+</div>
+<body>
+</br>
+<center>
+    <button type="button" class="btn btn-secondary" onclick="text_out()">Подсказка</button>
+<p id="text_change"></p>
+<hr>
+     <script>
+         value = true
+         value1 = true
+         function text_out(){
+  var p;
+  p = document.getElementById('text_change');
+  p.innerHTML = '{{task.hint}}';
+
+}
+<!--var btn = document.createElement('button');//создаём нашу кнопку-->
+
+<!--var textInBtn = document.createTextNode('BUTTON');//создаем текст для кнопки-->
+
+<!--btn.appendChild(textInBtn);//добавляем текст в кнопку-->
+<!--             btn.onclick = showmem;-->
+<!--if(value){//в зависимости от условия добавляем кнопку в документ-->
+<!--  document.body.appendChild(btn);-->
+<!--}-->
+<!--value = false-->
+<!--}-->
+<!--function showmem() {-->
+<!--var text1 = document.createElement('p');//создаём нашу кнопку-->
+
+<!--var textInBtn = document.createTextNode('aaaaa');//создаем текст для кнопки-->
+
+<!--text1.appendChild(textInBtn);//добавляем текст в кнопку-->
+<!--if(value1){//в зависимости от условия добавляем кнопку в документ-->
+<!--  document.body.appendChild(text1);-->
+<!--}-->
+<!--value1 = false-->
+<!--}-->
+     </script>
+</center>
+<center>
+    <button type="button" class="btn btn-secondary" onclick="text_out1()">Решение</button>
+<p id="text_change1"></p>
+<hr>
+     <script>
+         value = true
+         value1 = true
+         function text_out1(){
+  var p;
+  p = document.getElementById('text_change1');
+  p.innerHTML = '{{task.solution}}';
+  }
+
+     </script>
+</center>
+
+</body>
+<body>
+                        <div>
+                            <form method="post">
+                                <input type="text" placeholder="Введите ответ" name="answer"><br/>
+                                {% if correctness
+%}
+        {% if correctness == 'Верно' %}
+<div class="alert alert-success">
+    Верно
+</div>
+{% endif %}
+        {% if correctness == 'Неверно' %}
+<div class="alert alert-danger" role="alert">
+  Неверно
+</div>
+        {% endif %}
+{% endif %}
+                                </br>
+                                <button type="submit" class="btn btn-success">Отправить</button>
+                            </form>
+                        </div>
+                      </body>
+<form action="/task/{{id}}" method="get">
+    </br>
+    <button type="submit" class="btn btn-success">Далее</button>
+    </form>
+{% endfor %}
+{% endblock %}
